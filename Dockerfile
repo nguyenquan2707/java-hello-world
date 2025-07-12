@@ -12,7 +12,9 @@ FROM eclipse-temurin:17
 WORKDIR /app
 
 # Copy built JAR from builder stage
-COPY --from=builder /app/target/*.jar app.jar
+#COPY --from=builder /app/target/*.jar app.jar
+COPY --from=builder /app/target/java-hello-world-1.0-SNAPSHOT.jar app.jar
+
 
 # Set environment variable for Firebase credentials (read at runtime)
 ENV FIREBASE_CONFIG_BASE64=""
