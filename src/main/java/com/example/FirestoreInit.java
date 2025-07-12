@@ -13,7 +13,7 @@ import java.nio.charset.StandardCharsets;
 
 public class FirestoreInit {
     public static Firestore initialize() throws IOException {
-        String jsonKey = System.getenv("FIREBASE_CREDENTIALS_JSON");
+        String jsonKey = System.getenv("FIREBASE_CONFIG_BASE64");
         if (jsonKey == null) {
             throw new RuntimeException("FIREBASE_CREDENTIALS_JSON env var is missing.");
         }
