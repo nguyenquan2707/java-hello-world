@@ -8,6 +8,6 @@ RUN mvn clean package -DskipTests
 # Use a lighter base image to run the app
 FROM eclipse-temurin:17-jdk
 WORKDIR /app
-COPY --from=builder /app/target/*.jar app.jar
+COPY --from=builder /app/target/java-hello-world-1.0-SNAPSHOT.jar app.jar
 COPY firebase-service-account.json firebase-service-account.json
 CMD ["java", "-jar", "app.jar"]
