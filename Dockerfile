@@ -16,8 +16,4 @@ COPY --from=builder /app/target/*.jar app.jar
 
 # Set environment variable for Firebase credentials (read at runtime)
 ENV FIREBASE_CONFIG_BASE64=""
-
-# Make script executable
-RUN chmod +x start.sh
-
 CMD ["java", "-jar", "app.jar"]
