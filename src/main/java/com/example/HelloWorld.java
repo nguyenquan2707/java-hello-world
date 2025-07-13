@@ -16,6 +16,9 @@ public class HelloWorld {
         String APIKEY = System.getenv("BINANCE_API_KEY");
         String SECRETKEY = System.getenv("BINANCE_SECRET_KEY");
 
+        System.out.println("APIKEY: " + APIKEY);
+        System.out.println("Secret: " + SECRETKEY);
+
 
         SpotClient spotClient = new SpotClientImpl(APIKEY, SECRETKEY);
         Margin margin = spotClient.createMargin();
