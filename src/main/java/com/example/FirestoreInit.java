@@ -59,8 +59,10 @@ public class FirestoreInit {
                 .build();
 
 
-        FirebaseApp.initializeApp(options);
-        System.out.println("✅ Firebase initialized!");
+        // Avoid re-initializing
+        if (FirebaseApp.getApps().isEmpty()) {
+            FirebaseApp.initializeApp(options);
+        }
 
         return FirestoreClient.getFirestore();
     }
