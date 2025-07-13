@@ -6,22 +6,49 @@ import com.google.cloud.firestore.DocumentReference;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.google.api.core.ApiFuture;
+import com.google.cloud.firestore.*;
+
+import java.util.concurrent.ExecutionException;
+
 public class BorrowSaver {
 
-    public static void saveBorrow(Firestore db, String symbol, double borrowableValue) {
+    /**
+     * Load data
+     */
+    public static void loadBorrowed(Firestore firestore) {
         try {
-            Map<String, Object> data = new HashMap<>();
-            data.put("symbol", symbol.toUpperCase());
-            data.put("borrowable", borrowableValue);
-            data.put("timestamp", System.currentTimeMillis());
+            CollectionReference collection = firestore.collection("borrow_history");
+            ApiFuture<QuerySnapshot> future = collection.get();
+            QuerySnapshot snapshot = future.get();
 
-            // Example: Collection = "borrow_history", Document ID = auto-generated
-            db.collection("borrow_history").add(data);
+            System.out.println("📥 Loaded dummy data from Firestore:");
+            for (DocumentSnapshot doc : snapshot.getDocuments()) {
+                System.out.println("- Symbol: " + doc.getId() + ", Borrow: " + doc.getDouble("value"));
+            }
 
-            System.out.printf("✅ Saved borrow for %s: %.2f\n", symbol, borrowableValue);
-        } catch (Exception e) {
-            System.err.println("❌ Failed to save to Firestore: " + e.getMessage());
+        } catch (InterruptedException | ExecutionException e) {
+            System.err.println("❌ Failed to load borrow data: " + e.getMessage());
         }
+    }
+
+    public static void saveBorrow(Firestore firestore) {
+        CollectionReference collection = firestore.collection("borrow_history");
+
+        Map<String, Double> dummyData = new HashMap<>();
+        dummyData.put("OMNI", 12345.67);
+        dummyData.put("PMG", 9876.54);
+        dummyData.put("BANANA", 45000.0);
+
+        dummyData.forEach((symbol, value) -> {
+            Map<String, Object> data = new HashMap<>();
+            data.put("value", value);
+
+            DocumentReference docRef = collection.document(symbol);
+            ApiFuture<?> result = docRef.set(data);
+        });
+
+        System.out.println("✅ Dummy data saved to Firestore.");
     }
 
 }
