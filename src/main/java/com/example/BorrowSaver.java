@@ -35,33 +35,6 @@ public class BorrowSaver {
         }
     }
 
-    public static void saveBorrow(Firestore firestore) {
-        CollectionReference collection = firestore.collection("borrow_history");
-
-        Map<String, Double> dummyData = new HashMap<>();
-        dummyData.put("OMNI", 12345.67);
-        dummyData.put("PMG", 9876.54);
-        dummyData.put("BANANA", 45000.0);
-
-        dummyData.forEach((symbol, value) -> {
-            Map<String, Object> data = new HashMap<>();
-            data.put("value", value);
-
-            DocumentReference docRef = collection.document(symbol);
-            ApiFuture<?> result = docRef.set(data);
-
-            try {
-                System.out.println(result.get());
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            } catch (ExecutionException e) {
-                throw new RuntimeException(e);
-            }
-        });
-
-        System.out.println("✅ Dummy data saved to Firestore.");
-    }
-
     public static void saveDummy(Firestore firestore) {
         Map<String, Object> dummyData = new HashMap<>();
         dummyData.put("symbol", "BTC_USDT");

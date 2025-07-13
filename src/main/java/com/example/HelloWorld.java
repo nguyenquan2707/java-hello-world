@@ -14,7 +14,7 @@ public class HelloWorld {
             BorrowSaver.saveDummy(database);
 
             //Load data
-//            BorrowSaver.loadBorrowed(database);
+            BorrowSaver.loadBorrowed(database);
 
             System.out.println("🚀 Hello from Java - deployed in the cloud!");
         }
