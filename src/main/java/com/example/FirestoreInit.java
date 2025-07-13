@@ -52,10 +52,12 @@ public class FirestoreInit {
             fos.write(decodedBytes);
         }
 
+        System.setProperty("GOOGLE_APPLICATION_CREDENTIALS", tempFile.getAbsolutePath());
         GoogleCredentials credentials = GoogleCredentials.fromStream(new FileInputStream(tempFile));
         FirebaseOptions options = FirebaseOptions.builder()
                 .setCredentials(credentials)
                 .build();
+
 
         FirebaseApp.initializeApp(options);
         System.out.println("✅ Firebase initialized!");
