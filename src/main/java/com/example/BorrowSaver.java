@@ -27,7 +27,7 @@ public class BorrowSaver {
 
             System.out.println("📥 Loaded dummy data from Firestore:");
             for (DocumentSnapshot doc : snapshot.getDocuments()) {
-                System.out.println("- Symbol: " + doc.getId() + ", Borrow: " + doc.getDouble("value"));
+                System.out.println("- Symbol: " + doc.getId() + ", Borrow: " + doc.getDouble("borrowable"));
             }
 
         } catch (InterruptedException | ExecutionException e) {
