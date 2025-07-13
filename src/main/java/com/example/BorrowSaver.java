@@ -2,6 +2,9 @@ package com.example;
 
 import com.google.cloud.firestore.Firestore;
 import com.google.cloud.firestore.DocumentReference;
+import com.google.cloud.firestore.Firestore;
+import com.google.cloud.firestore.DocumentReference;
+
 
 import java.util.HashMap;
 import java.util.Map;
@@ -57,6 +60,25 @@ public class BorrowSaver {
         });
 
         System.out.println("✅ Dummy data saved to Firestore.");
+    }
+
+    public static void saveDummy(Firestore firestore) {
+        Map<String, Object> dummyData = new HashMap<>();
+        dummyData.put("symbol", "BTC_USDT");
+        dummyData.put("borrowable", 123456.78);
+        dummyData.put("timestamp", System.currentTimeMillis());
+
+        try {
+            ApiFuture<DocumentReference> future = firestore
+                    .collection("borrow_history")
+                    .add(dummyData);
+
+            DocumentReference docRef = future.get();  // blocking
+            System.out.println("✅ Dummy saved with ID: " + docRef.getId());
+        } catch (Exception e) {
+            System.err.println("❌ Failed to save dummy: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
 }

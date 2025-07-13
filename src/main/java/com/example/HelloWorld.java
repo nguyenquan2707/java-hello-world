@@ -11,7 +11,7 @@ public class HelloWorld {
         // Keep app alive
         while (true) {
             Thread.sleep(2000); // Sleep 1 giây
-            BorrowSaver.saveBorrow(database);
+            BorrowSaver.saveDummy(database);
 
             //Load data
 //            BorrowSaver.loadBorrowed(database);
