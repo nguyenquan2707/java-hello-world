@@ -46,6 +46,14 @@ public class BorrowSaver {
 
             DocumentReference docRef = collection.document(symbol);
             ApiFuture<?> result = docRef.set(data);
+
+            try {
+                System.out.println(result.get());
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            } catch (ExecutionException e) {
+                throw new RuntimeException(e);
+            }
         });
 
         System.out.println("✅ Dummy data saved to Firestore.");
